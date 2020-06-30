@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .container {
+            font-size: 2em;
+            text-align: center;
+            transform: translate(0%, 250%);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <p id="not" class="container shadow-lg p-5 mb-5 bg-white rounded"> -->
+    
+    </p>
+
+    <script>
+
+        {
+            (() => {
+                if (localStorage.getItem("token")) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var response = JSON.parse(this.responseText);
+                            console.log(response);
+
+
+                            var body = document.getElementsByTagName('body')[0];
+
+                            // Create Table
+                            var tbl = document.createElement('table');
+                            tbl.style.width = '100%';
+                            tbl.setAttribute('border', '1');
+                            tbl.setAttribute('class', 'table table-dark table-hover');
+
+                            // Table Heading
+                            var thead = document.createElement('thead');
+                            // thead=document.setAttribute("class")
+                            // Course Id
+                            var heading = document.createElement('th');
+                            heading.appendChild(document.createTextNode("Course Id"));
+
+                            // Course Name
+                            var heading1 = document.createElement('th');
+                            heading1.appendChild(document.createTextNode("Course Name"));
+
+                            thead.appendChild(heading);
+                            thead.appendChild(heading1);
+                            tbl.appendChild(thead);
+
+
+                            // Table body
+                            var tbdy = document.createElement('tbody');
+                            response.map(function (item) {
+                                var tr = document.createElement('tr');
+                                var td = document.createElement('td');
+                                td.appendChild(document.createTextNode(item.courseid));
+                                tr.appendChild(td)
+                                var td1 = document.createElement('td');
+                                td1.appendChild(document.createTextNode(item.coursename));
+                                tr.appendChild(td1)
+
+                                tbdy.appendChild(tr);
+                            })
+                            tbl.appendChild(tbdy);
+                            body.appendChild(tbl)
+
+                        }
+
+
+                        // response.map(function (item) {
+
+
+                        // })
+
+                    }
+
+
+                    xhttp.open("GET", "https://localhost:44379/api/Course/GetCourse", true);
+                    xhttp.setRequestHeader("Content-type", "application/json");
+                    xhttp.setRequestHeader("Authorization", `Bearer ${localStorage.getItem("token")}`);
+                    xhttp.send();
+                }
+                else {
+                    document.getElementById("not").innerHTML = "Server Down ";
+                    var btn = document.createElement("button");
+                    btn.innerHTML = "CLICK ME";
+                    document.getElementById("not").appendChild(btn);
+                    document.getElementsByTagName("button")[0].setAttribute("class", "btn btn-primary");
+
+                }
+            })()
+        }
+    </script>
+</body>
+
+</html>

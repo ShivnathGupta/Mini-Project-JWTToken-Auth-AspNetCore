@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="Monika" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.AssignSubject" Member="AssignSubject">
+    <Type Name="AssignSubject">
+      <Column Name="assignid" Member="Assignid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="regidref" Member="Regidref" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="subjectidref" Member="Subjectidref" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isActive" Member="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="FK__AssignSub__regid__31EC6D26" Member="Registration" ThisKey="Regidref" OtherKey="Regid" Type="Registration" IsForeignKey="true" />
+      <Association Name="FK__AssignSub__subje__1B0907CE" Member="Subject" ThisKey="Subjectidref" OtherKey="Subjectid" Type="Subject" IsForeignKey="true" />
+      <Association Name="FK__Test__assignidre__1DE57479" Member="Test" ThisKey="Assignid" OtherKey="Assignidref" Type="Test" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Course" Member="Course">
+    <Type Name="Course">
+      <Column Name="courseid" Member="Courseid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="coursename" Member="Coursename" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="isActive" Member="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="FK__StudentAs__stdco__3A81B327" Member="StudentAssignCourse" ThisKey="Courseid" OtherKey="Stdcourseid" Type="StudentAssignCourse" DeleteRule="NO ACTION" />
+      <Association Name="FK__Subject__coursei__173876EA" Member="Subject" ThisKey="Courseid" OtherKey="Courseidref" Type="Subject" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Question" Member="Question">
+    <Type Name="Question">
+      <Column Name="questionid" Member="Questionid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="question" Member="Question1" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="option1" Member="Option1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="option2" Member="Option2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="option3" Member="Option3" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="option4" Member="Option4" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="answer" Member="Answer" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="testidref" Member="Testidref" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isActive" Member="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="FK__Question__testid__20C1E124" Member="Test" ThisKey="Testidref" OtherKey="Testid" Type="Test" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Registration" Member="Registration">
+    <Type Name="Registration">
+      <Column Name="regid" Member="Regid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="firstname" Member="Firstname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="lastname" Member="Lastname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="email" Member="Email" Type="System.String" DbType="VarChar(254)" CanBeNull="true" />
+      <Column Name="password" Member="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="roleid" Member="Roleid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isActive" Member="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="FK__AssignSub__regid__31EC6D26" Member="AssignSubject" ThisKey="Regid" OtherKey="Regidref" Type="AssignSubject" DeleteRule="NO ACTION" />
+      <Association Name="FK__Registrat__rolei__30F848ED" Member="Role" ThisKey="Roleid" OtherKey="Roleid" Type="Role" IsForeignKey="true" />
+      <Association Name="FK__StudentAs__regid__398D8EEE" Member="StudentAssignCourse" ThisKey="Regid" OtherKey="Regidref" Type="StudentAssignCourse" DeleteRule="NO ACTION" />
+      <Association Name="FK__StudentRe__regid__32E0915F" Member="StudentRemarks" ThisKey="Regid" OtherKey="Regidref" Type="StudentRemarks" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Role" Member="Role">
+    <Type Name="Role">
+      <Column Name="roleid" Member="Roleid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="rolename" Member="Rolename" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="isActive" Member="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="FK__Registrat__rolei__30F848ED" Member="Registration" ThisKey="Roleid" OtherKey="Roleid" Type="Registration" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudentAssignCourse" Member="StudentAssignCourse">
+    <Type Name="StudentAssignCourse">
+      <Column Name="stdassignid" Member="Stdassignid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="regidref" Member="Regidref" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="stdcourseid" Member="Stdcourseid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="FK__StudentAs__regid__398D8EEE" Member="Registration" ThisKey="Regidref" OtherKey="Regid" Type="Registration" IsForeignKey="true" />
+      <Association Name="FK__StudentAs__stdco__3A81B327" Member="Course" ThisKey="Stdcourseid" OtherKey="Courseid" Type="Course" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudentRemarks" Member="StudentRemarks">
+    <Type Name="StudentRemarks">
+      <Column Name="studentremarkid" Member="Studentremarkid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="regidref" Member="Regidref" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="total" Member="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="obtained" Member="Obtained" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="testidref" Member="Testidref" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="subjectidref" Member="Subjectidref" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="FK__StudentRe__regid__32E0915F" Member="Registration" ThisKey="Regidref" OtherKey="Regid" Type="Registration" IsForeignKey="true" />
+      <Association Name="FK__StudentRe__subje__2E1BDC42" Member="Subject" ThisKey="Subjectidref" OtherKey="Subjectid" Type="Subject" IsForeignKey="true" />
+      <Association Name="FK__StudentRe__testi__2D27B809" Member="Test" ThisKey="Testidref" OtherKey="Testid" Type="Test" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Subject" Member="Subject">
+    <Type Name="Subject">
+      <Column Name="subjectid" Member="Subjectid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sname" Member="Sname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="isActive" Member="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="courseidref" Member="Courseidref" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="FK__AssignSub__subje__1B0907CE" Member="AssignSubject" ThisKey="Subjectid" OtherKey="Subjectidref" Type="AssignSubject" DeleteRule="NO ACTION" />
+      <Association Name="FK__StudentRe__subje__2E1BDC42" Member="StudentRemarks" ThisKey="Subjectid" OtherKey="Subjectidref" Type="StudentRemarks" DeleteRule="NO ACTION" />
+      <Association Name="FK__Subject__coursei__173876EA" Member="Course" ThisKey="Courseidref" OtherKey="Courseid" Type="Course" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Test" Member="Test">
+    <Type Name="Test">
+      <Column Name="testid" Member="Testid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="assignidref" Member="Assignidref" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="FK__Question__testid__20C1E124" Member="Question" ThisKey="Testid" OtherKey="Testidref" Type="Question" DeleteRule="NO ACTION" />
+      <Association Name="FK__StudentRe__testi__2D27B809" Member="StudentRemarks" ThisKey="Testid" OtherKey="Testidref" Type="StudentRemarks" DeleteRule="NO ACTION" />
+      <Association Name="FK__Test__assignidre__1DE57479" Member="AssignSubject" ThisKey="Assignidref" OtherKey="Assignid" Type="AssignSubject" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
